@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RAVIYA MD MINI | WhatsApp Bot</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --blue1:#00cfff; --blue2:#0077ff; --blue3:#00ffff;
+  --red1:#ff0033; --red2:#ff4d4d; --red3:#ff0000;
+  --glass:rgba(255,255,255,.08);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  min-height:100vh;
+  font-family:'Rajdhani',sans-serif;
+  color:white;
+  background:linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url("background.jpg");
+  background-size:cover;
+  background-position:center;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  overflow:hidden;
+}
+
+/* PAGES */
+.page{display:none; width:100%; max-width:450px; text-align:center;}
+.active{display:block;}
+
+/* MAIN BOX */
+.home-box, .box{
+  padding:35px 50px;
+  border-radius:25px;
+  background:rgba(0,0,0,.6);
+  backdrop-filter:blur(18px);
+  box-shadow:0 0 30px rgba(255,0,150,.4), 0 0 60px rgba(0,255,255,.3);
+  text-align:center;
+  animation:boxGlow 6s linear infinite;
+}
+@keyframes boxGlow{
+  0%{box-shadow:0 0 25px #ff004c;}
+  33%{box-shadow:0 0 35px #00fff0;}
+  66%{box-shadow:0 0 35px #7f00ff;}
+  100%{box-shadow:0 0 25px #ff004c;}
+}
+
+/* LOGO */
+.logo-wrapper, .logo-wrap{position:relative; width:150px; height:150px; margin:0 auto 20px;}
+.logo-ring{
+  position:absolute; inset:0; border-radius:50%;
+  background:conic-gradient(red, yellow, lime, cyan, blue, magenta, red);
+  filter:blur(12px);
+  animation:spin 3s linear infinite, hue 6s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes hue{to{filter:hue-rotate(360deg) blur(12px);}}
+
+.logo, .logo-core{
+  position:absolute; inset:12px; border-radius:50%; overflow:hidden; background:black; border:4px solid #fff;
+  box-shadow:0 0 25px #ff00ff, 0 0 45px #00ffff; animation:pulse 2.5s ease-in-out infinite; z-index:2;
+}
+@keyframes pulse{50%{box-shadow:0 0 50px #00ffff;}}
+.logo img, .logo-core img{width:100%; height:100%; object-fit:cover;}
+
+/* TITLE */
+h1{
+  margin-bottom:10px; font-size:28px; font-weight:900; letter-spacing:1px; color:#fff;
+  text-shadow:1px 1px 0 #111,2px 2px 0 #111,3px 3px 0 #111,0 0 10px #ff004c,0 0 20px #ff004c,0 0 40px #00fff0,0 0 60px #7f00ff;
+  animation:textRGB 5s linear infinite, flicker 3s infinite;
+}
+@keyframes textRGB{
+  0%{text-shadow:1px 1px 0 #111,3px 3px 0 #111,0 0 10px #ff004c,0 0 30px #ff004c;}
+  33%{text-shadow:1px 1px 0 #111,3px 3px 0 #111,0 0 10px #00fff0,0 0 30px #00fff0;}
+  66%{text-shadow:1px 1px 0 #111,3px 3px 0 #111,0 0 10px #7f00ff,0 0 30px #7f00ff;}
+  100%{text-shadow:1px 1px 0 #111,3px 3px 0 #111,0 0 10px #ff004c,0 0 30px #ff004c;}
+}
+@keyframes flicker{
+  0%,18%,22%,25%,53%,57%,100%{opacity:1;}
+  20%,24%,55%{opacity:.85;}
+}
+
+p{font-size:14px; margin-bottom:25px; color:#fff; text-shadow:0 0 8px #00fff0,0 0 16px #ff00ff; animation:subGlow 4s linear infinite;}
+@keyframes subGlow{50%{text-shadow:0 0 16px #00fff0;}}
+
+/* BUTTONS */
+.btn{
+  width:100%; margin-top:15px; padding:15px; border:none; border-radius:14px; color:white; font-size:15px; cursor:pointer;
+  background:linear-gradient(90deg,#ff004c,#00fff0,#7f00ff); animation:hue 4s linear infinite;
+  box-shadow:0 0 20px rgba(255,255,255,.4); transition:.3s;
+}
+.btn:hover{transform:translateY(-4px) scale(1.03); box-shadow:0 0 30px #00fff0,0 0 60px #ff00ff;}
+.btn i{margin-right:8px;}
+
+/* PAIR CODE PAGE */
+.input-container{display:flex;border-radius:12px;overflow:hidden;margin-bottom:15px;}
+input{flex:1;padding:14px;border:none;background:rgba(0,0,0,.4);color:white;}
+#pair{margin-top:20px;padding:15px;border-radius:12px;background:radial-gradient(circle at top,rgba(255,0,0,.5),rgba(0,0,0,.7));border:1px solid rgba(255,0,0,.6); box-shadow:0 0 25px rgba(255,0,0,.7), inset 0 0 15px rgba(255,0,0,.5); font-family:'Orbitron'; font-size:20px; color:#ff4d4d; text-shadow:0 0 10px #ff0000; text-align:center;}
+
+.owner-box{margin-top:25px;padding:15px;border-radius:14px;background:radial-gradient(circle at top,rgba(255,0,0,.35),rgba(0,0,0,.6));border:1px solid rgba(255,0,0,.5);box-shadow:0 0 25px rgba(255,0,0,.7), inset 0 0 15px rgba(255,0,0,.5);animation:redPulse 3s ease-in-out infinite;}
+@keyframes redPulse{0%,100%{box-shadow:0 0 20px var(--red1)}50%{box-shadow:0 0 45px var(--red2)}}
+.owner-box h2{font-family:'Orbitron'; font-size:16px; color:#ff4d4d; text-shadow:0 0 15px var(--red2);}
+.owner-box p{font-size:14px; margin-top:5px; text-shadow:0 0 10px var(--red1);}
+
+/* RED TOOLBAR TOP RIGHT */
+.toolbar{
+  position:fixed;
+  top:15px;
+  right:15px;
+  display:flex;
+  gap:10px;
+  z-index:100;
+}
+.toolbar a{
+  width:45px;
+  height:45px;
+  background:linear-gradient(135deg,var(--red1),var(--red2));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  color:white;
+  font-size:20px;
+  transition:0.3s;
+}
+.toolbar a:hover{
+  transform:scale(1.1);
+  box-shadow:0 0 15px var(--red1);
+}
+
+audio{display:none;}
+</style>
+</head>
+<body>
+
+<!-- RED TOOLBAR -->
+<div class="toolbar">
+  <a href="https://wa.me/94778430626" target="_blank" title="WhatsApp Contact"><i class="fab fa-whatsapp"></i></a>
+  <a href="https://chat.whatsapp.com/JHBUx8ILjM4KWi9581HRi4" target="_blank" title="WhatsApp Group"><i class="fas fa-users"></i></a>
+  <a href="https://whatsapp.com/channel/0029Vb74ZB01iUxQUT4A8P2b" target="_blank" title="WhatsApp Channel"><i class="fas fa-bullhorn"></i></a>
+</div>
+
+<!-- PAGE 1: HOME -->
+<div id="homePage" class="page active home-box">
+  <div class="logo-wrapper">
+    <div class="logo-ring"></div>
+    <div class="logo">
+      <img src="https://i.ibb.co/gbxcpRgf/tourl-1766382264252.jpg" alt="RAVIYA MD MINI ">
+    </div>
+  </div>
+  <h1>RAVIYA MD WHATSAPP BOT</h1>
+  <p>Secure • Fast • Advanced</p>
+  <button class="btn" onclick="switchPage('pairPage')"><i class="fas fa-link"></i> CONNECT BOT</button>
+  <button class="btn" onclick="playMusic()"><i class="fas fa-play"></i> PLAY MUSIC</button>
+</div>
+
+<!-- PAGE 2: PAIR CODE -->
+<div id="pairPage" class="page box">
+  <div class="logo-wrap">
+    <div class="logo-ring"></div>
+    <div class="logo-core">
+      <img src="https://i.ibb.co/gbxcpRgf/tourl-1766382264252.jpg">
+    </div>
+  </div>
+  <h1>RAVIYA MD PAIR CODE</h1>
+  <div class="input-container">
+    <input id="number" placeholder="+243xxxxxxxx">
+    <button id="submit">ENTER</button>
+  </div>
+  <div id="pair">Your code will appear here</div>
+  <div class="owner-box">
+    <h2>BOT OWNER</h2>
+    <p>👤 Name : DTZ RAVIYA</p>
+    <p>👥 Team : DARK TECH ZONE TEAM</p>
+  </div>
+</div>
+
+<audio id="bgMusic" loop>
+  <source src="https://files.catbox.moe/6nwx91.mp4" type="audio/mpeg">
+</audio>
+
+<script>
+const music = document.getElementById("bgMusic");
+window.addEventListener("load", () => {
+  music.play().catch(() => {
+    document.addEventListener("click", () => music.play(), { once:true });
+  });
+});
+
+function playMusic(){ music.play(); }
+
+function switchPage(pageId){
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+}
+
+/* PAIR CODE GENERATOR */
+document.getElementById("submit").onclick = () => {
+  const code = Math.floor(100000 + Math.random()*900000);
+  document.getElementById("pair").innerHTML = `<b>CODE:</b> ${code}`;
+};
+</script>
+
+</body>
+</html>
